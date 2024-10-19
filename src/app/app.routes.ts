@@ -5,6 +5,6 @@ import { DashboardComponent } from './views/dashboard/dashboard.component';
 
 export const routes: Routes = [
     { path: 'login', component: LoginComponent },
-    { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+    { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
