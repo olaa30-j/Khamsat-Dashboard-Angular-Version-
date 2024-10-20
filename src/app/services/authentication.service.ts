@@ -18,21 +18,18 @@ export class AuthenticationService {
     this.userStatus = new BehaviorSubject<boolean>(this.isAdminLogged) 
   }
 
-  login(email: string, password: string) {
-    this.http.post<{ message: string }>(`${this.url}login`, { email, password }).subscribe({
+  login(email: string, password: string): void {
+    this.http.post<{ message: string }>(`${this.url}login`, { email, password }, { withCredentials: true }).subscribe({
       next: response => {
-        console.log('Login successful:', response);
-        this.userStatus.next(true);
-        this.router.navigate(['/dashboard']);
-    console.log(this.cookieService.check('authToken'));
-     
-
+          this.userStatus.next(true);
+          this.router.navigate(['/dashboard']); 
       },
       error: error => {
-        this.errorMessage = 'Login failed. Please check your credentials and try again.';
+        this.errorMessage = error.error?.message || 'Login failed. Please check your credentials and try again.';
         console.error('Login error:', error);
       },
       complete: () => {
+        console.log( this.cookieService.getAll());
         console.log('Login request completed');
       }
     });
@@ -45,7 +42,7 @@ export class AuthenticationService {
   }
 
   get isAdminLogged():boolean{
-    return this.cookieService.check('authToken');
+    return this.cookieService.get('authToken')? true : false;
   }
   
   getUserStatus(){
