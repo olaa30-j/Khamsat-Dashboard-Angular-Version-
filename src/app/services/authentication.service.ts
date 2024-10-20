@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +30,6 @@ export class AuthenticationService {
         console.error('Login error:', error);
       },
       complete: () => {
-        console.log( this.cookieService.getAll());
         console.log('Login request completed');
       }
     });
@@ -42,10 +42,18 @@ export class AuthenticationService {
   }
 
   get isAdminLogged():boolean{
-    return this.cookieService.get('authToken')? true : false;
+    return this.cookieService.check('authToken');
   }
   
   getUserStatus(){
     this.userStatus.asObservable();
+  }
+
+  getUserData(){
+    const token = this.cookieService.get('authToken');
+    if (token) {
+      return jwtDecode(token);
+    }
+    return null;
   }
 }
