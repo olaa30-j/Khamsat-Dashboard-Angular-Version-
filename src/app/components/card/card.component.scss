@@ -1,0 +1,52 @@
+.card-container {
+    display: flex; /* Use flexbox for horizontal layout */
+    justify-content: space-around; /* Distribute space evenly between cards */
+    flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
+    background-color: #f0f0f0; /* Light gray background for the container */
+    padding: 16px; /* Add some padding to the container */
+  }
+  
+  .example-card {
+    flex: 1 1 30%; /* Allow cards to grow and shrink, taking up to 30% of the container width */
+    max-width: 400px; /* Max width of cards */
+    background-color: #ffffff; /* White background for cards */
+    margin: 16px; /* Space between cards */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Add a slight shadow */
+    border-radius: 8px; /* Slightly rounded corners */
+  }
+  
+  .content-wrapper {
+    display: flex; /* Use flexbox for the content layout */
+    justify-content: space-between; /* Distribute space between text and image */
+    align-items: center; /* Center align items vertically */
+  }
+  
+  .card-image {
+    width: 80px; /* Set the width of the image */
+    height: auto; /* Maintain aspect ratio */
+    margin-left: 16px; /* Space between text and image */
+    /* Optional: to remove margin-left if you want to push it fully to the right */
+  }
+  
+  .long-text {
+    font-size: 3em; /* Increase the font size */
+    font-weight: bold; /* Make the text bold */
+  }
+  
+  .example-card-footer {
+    padding: 16px;
+  }
+  
+  /* Media query for smaller screens */
+  @media (max-width: 768px) {
+    .example-card {
+      flex: 1 1 100%;
+      max-width: none; 
+      margin: 8px 0; 
+    }
+  
+    .card-image {
+      width: 60px; 
+    }
+  }
+  

@@ -1,0 +1,42 @@
+mat-card {
+    margin: 2%;
+  }
+  
+  button {
+    margin: 2px;
+  }
+  
+  th {
+    background-color: #EA6A47 !important;
+    color: white;
+   
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .green-button, .red-button {
+    font-size: 16px;
+    padding: 10px 20px; 
+    border-radius: 8px;
+  }
+  
+  .green-button {
+    background-color: green;
+    color: white;
+  
+    &:hover {
+      background-color: darkgreen;
+    }
+  }
+  
+  .red-button {
+    background-color: red;
+    color: white;
+  
+    &:hover {
+      background-color: darkred;
+    }
+  }
