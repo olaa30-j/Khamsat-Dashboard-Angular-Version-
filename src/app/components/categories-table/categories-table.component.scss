@@ -1,0 +1,27 @@
+mat-card {
+    margin: 2%;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #757474;
+    box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  th, td {
+    border: 1px solid #757474;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  th {
+    padding-left: 200px;
+    background-color: #0a0a0a !important;
+    color: white;
+  }
+  #upgrades{
+    padding-left: 85px;
+  }
