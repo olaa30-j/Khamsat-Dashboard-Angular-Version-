@@ -1,43 +1,43 @@
 .card-container {
-    display: flex; /* Use flexbox for horizontal layout */
-    justify-content: space-around; /* Distribute space evenly between cards */
-    flex-wrap: wrap; /* Allow cards to wrap on smaller screens */
-    background-color: #f0f0f0; /* Light gray background for the container */
-    padding: 16px; /* Add some padding to the container */
+    display: flex; 
+    justify-content: space-around; 
+    flex-wrap: wrap; 
+    background-color: #f0f0f0; 
+    padding: 16px;
   }
   
   .example-card {
-    flex: 1 1 30%; /* Allow cards to grow and shrink, taking up to 30% of the container width */
-    max-width: 400px; /* Max width of cards */
-    background-color: #ffffff; /* White background for cards */
-    margin: 16px; /* Space between cards */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Optional: Add a slight shadow */
-    border-radius: 8px; /* Slightly rounded corners */
+    flex: 1 1 30%; 
+    max-width: 400px; 
+    background-color: #ffffff; 
+    margin: 16px; 
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+    border-radius: 8px; 
   }
   
   .content-wrapper {
-    display: flex; /* Use flexbox for the content layout */
-    justify-content: space-between; /* Distribute space between text and image */
-    align-items: center; /* Center align items vertically */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   
   .card-image {
-    width: 80px; /* Set the width of the image */
-    height: auto; /* Maintain aspect ratio */
-    margin-left: 16px; /* Space between text and image */
-    /* Optional: to remove margin-left if you want to push it fully to the right */
+    width: 80px;
+    height: auto; 
+    margin-left: 16px; 
+  
   }
   
   .long-text {
-    font-size: 3em; /* Increase the font size */
-    font-weight: bold; /* Make the text bold */
+    font-size: 3em; 
+    font-weight: bold; 
   }
   
   .example-card-footer {
     padding: 16px;
   }
   
-  /* Media query for smaller screens */
+
   @media (max-width: 768px) {
     .example-card {
       flex: 1 1 100%;

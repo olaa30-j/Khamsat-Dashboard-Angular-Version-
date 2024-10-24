@@ -1,46 +1,54 @@
 <mat-card>
     <mat-card-header>
-      <mat-card-title>خدمات</mat-card-title> <!-- Add a title if needed -->
+        <mat-card-title>Services</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-        <ng-container matColumnDef="id">
-          <th mat-sort-header mat-header-cell *matHeaderCellDef> ID </th>
-          <td mat-cell *matCellDef="let element">{{element.id}}</td>
-        </ng-container>
+        <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+            <ng-container matColumnDef="id">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef> ID </th>
+                <td mat-cell *matCellDef="let element">{{element.id}}</td>
+            </ng-container>
   
-        <ng-container matColumnDef="اسم المستخدم">
-          <th mat-sort-header mat-header-cell *matHeaderCellDef> اسم المستخدم </th>
-          <td mat-cell *matCellDef="let element">{{element['اسم المستخدم']}}</td>
-        </ng-container>
+            <ng-container matColumnDef="username">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef> Username </th>
+                <td mat-cell *matCellDef="let element">{{element['username']}}</td>
+            </ng-container>
   
-        <ng-container matColumnDef="عنوان الخدمة">
-          <th mat-sort-header mat-header-cell *matHeaderCellDef> عنوان الخدمة </th>
-          <td mat-cell *matCellDef="let element">{{element['عنوان الخدمة']}}</td>
-        </ng-container>
+            <ng-container matColumnDef="title">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef> Title </th>
+                <td mat-cell *matCellDef="let element">{{element['title']}}</td>
+            </ng-container>
   
-        <ng-container matColumnDef="الحالة">
-          <th mat-sort-header mat-header-cell *matHeaderCellDef> الحالة </th>
-          <td mat-cell *matCellDef="let element">{{element['الحالة']}}</td>
-        </ng-container>
+            <ng-container matColumnDef="status">
+                <th mat-sort-header mat-header-cell *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let element">{{element['status']}}</td>
+            </ng-container>
   
-        <ng-container matColumnDef="القرار">
-          <th mat-header-cell *matHeaderCellDef> القرار </th>
-          <td mat-cell *matCellDef="let element">
-            <button mat-raised-button color="primary" (click)="onAccept(element)">قبول</button>
-            <button mat-raised-button color="warn" (click)="onReject(element)">رفض</button>
-          </td>
-        </ng-container>
+            <ng-container matColumnDef="decision">
+                <th mat-header-cell *matHeaderCellDef> Decision </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-raised-button class="accept-button">Accept</button>
+                    <button mat-raised-button class="pending-button">Pending</button>
+                    <button mat-raised-button class="waiting-button">Waiting</button>
+                </td>
+            </ng-container>
   
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
-            [ngStyle]="{'background-color': row.hovered ? '#7E909A' : ''}" 
-            (mouseenter)="row.hovered = true" 
-            (mouseleave)="row.hovered = false">
-        </tr>
-      </table>
+            <ng-container matColumnDef="details">
+                <th mat-header-cell *matHeaderCellDef> Details </th>
+                <td mat-cell *matCellDef="let element">
+                    <button mat-raised-button class="details-button">Details</button>
+                </td>
+            </ng-container>
   
-      <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" 
+                [ngStyle]="{'background-color': row.hovered ? '#e4e4e4' : ''}" 
+                (mouseenter)="row.hovered = true" 
+                (mouseleave)="row.hovered = false">
+            </tr>
+        </table>
+  
+        <mat-paginator [pageSizeOptions]="[5, 10]" showFirstLastButtons></mat-paginator>
     </mat-card-content>
   </mat-card>
   
