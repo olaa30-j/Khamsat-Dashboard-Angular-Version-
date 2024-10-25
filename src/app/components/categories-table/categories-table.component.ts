@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, OnInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, OnInit, OnDestroy } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -9,6 +9,7 @@ import { CategoriesService, ICategory } from '../../services/categories/categori
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from './reusable-dailog/resable-dailog.component';
+import { EditCategoryComponent } from '../edit-category/edit-category.component';
 
 @Component({
   selector: 'app-categories-table',
@@ -19,13 +20,12 @@ import { DialogComponent } from './reusable-dailog/resable-dailog.component';
     MatSortModule,
     MatButtonModule,
     MatCardModule,
-    CommonModule
+    CommonModule,
   ],
   templateUrl: './categories-table.component.html',
   styleUrls: ['./categories-table.component.scss']
 })
-
-export class CategoriesTableComponent implements AfterViewInit, OnInit {
+export class CategoriesTableComponent implements AfterViewInit, OnInit, OnDestroy {
   displayedColumns: string[] = ['id', 'nameAr', 'nameEn', 'descriptionAr', 'descriptionEn', 'edit', 'remove'];
   CategoriesData: ICategory[] = [];
   loading: boolean = true;
@@ -33,7 +33,7 @@ export class CategoriesTableComponent implements AfterViewInit, OnInit {
   dataSource = new MatTableDataSource<ICategory>(this.CategoriesData);
   private subscription: Subscription = new Subscription();
 
-  constructor(private categoriesService: CategoriesService, private dialog: MatDialog) { }
+  constructor(private categoriesService: CategoriesService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.getAllCategories();
@@ -63,7 +63,16 @@ export class CategoriesTableComponent implements AfterViewInit, OnInit {
   }
 
   openEditDialog(element: ICategory) {
-    // Logic for edit dialog
+    console.log('open');
+    const dialogRef = this.dialog.open(EditCategoryComponent, {
+      data: element,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.getAllCategories();
+      }
+    });
   }
 
   deleteDialog(element: ICategory): void {
@@ -84,8 +93,7 @@ export class CategoriesTableComponent implements AfterViewInit, OnInit {
   deleteCategory(id: string): void {
     this.categoriesService.deleteCategory(id).subscribe({
       next: () => {
-        console.log("Deleted successfully");
-        this.getAllCategories(); 
+        this.getAllCategories();
       },
       error: (error) => {
         this.errorMessage = error.error?.message || 'An error occurred while deleting the category.';
@@ -100,11 +108,9 @@ export class CategoriesTableComponent implements AfterViewInit, OnInit {
   ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
-    this.paginator.pageSize = 5;
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
 }
-

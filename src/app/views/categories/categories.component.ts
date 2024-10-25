@@ -49,7 +49,7 @@ export class CategoriesComponent implements OnInit {
       const newCategory: ICategory = this.categoryForm.value;
       this.categoriesService.createCategory(newCategory).subscribe({
         next: (createdCategory) => {
-          console.log('Category created:', createdCategory);
+          this.categoriesService.getAllCategories().subscribe()
           this.resetForm();
           this.closeDialog();
         },
