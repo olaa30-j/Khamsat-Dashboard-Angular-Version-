@@ -4,7 +4,7 @@
         <div class="flex h-16 items-center justify-between">
           <div class="flex gap-3">
             <button (click)="toggleSidebar('linksTab')"
-                    class="p-2 transition-colors hidden md:block rounded-2xl shadow-md hover:bg-secondary hover:text-white focus:outline-none text-gray-500"
+                    class="p-2 transition-colors hidden md:block rounded-md shadow-md hover:bg-secondary hover:text-white focus:outline-none text-gray-500"
                     [ngClass]="(isSidebarOpen &&  currentSidebarTab === 'linksTab') ? 'text-white bg-secondary' : 'text-gray-500 bg-white'">
               <span class="sr-only">Toggle sidebar</span>
               <svg aria-hidden="true" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -15,7 +15,7 @@
             </button>
   
             <button (click)="toggleSidebar('messagesTab')"
-                    class="p-2 transition-colors rounded-2xl shadow-md hover:bg-secondary hover:text-white focus:outline-none text-gray-500 "
+                    class="p-2 transition-colors rounded-md shadow-md hover:bg-secondary hover:text-white focus:outline-none text-gray-500 "
                     [ngClass]="(isSidebarOpen &&  currentSidebarTab === 'messagesTab') ? 'text-white bg-secondary' : 'text-gray-500 bg-white'">
               <span class="sr-only">Toggle message panel</span>
               <svg aria-hidden="true" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -26,7 +26,7 @@
             </button>
   
             <button (click)="toggleSidebar('notificationsTab')"
-                    class="p-2 transition-colors rounded-2xl shadow-md hover:bg-secondary hover:text-white focus:outline-none text-gray-500 "
+                    class="p-2 transition-colors rounded-md shadow-md hover:bg-secondary hover:text-white focus:outline-none text-gray-500 "
                     [ngClass]="(isSidebarOpen &&  currentSidebarTab === 'notificationsTab') ? 'text-white bg-secondary' : 'text-gray-500 bg-white'">
               <span class="sr-only">Toggle notifications panel</span>
               <svg aria-hidden="true" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -48,7 +48,7 @@
               </div>
   
               <button (click)="toggleSidebar('linksTab')"
-                      class="p-2 transition-colors rounded-2xl focus:outline-none text-gray-500 bg-white"
+                      class="p-2 transition-colors rounded-md focus:outline-none text-gray-500 bg-white"
                       [ngClass]="(isSidebarOpen &&  currentSidebarTab === 'linksTab') ? 'text-secondary' : 'text-gray-500'">
                 <span class="sr-only">Settings</span>
                 <svg aria-hidden="true" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none"
