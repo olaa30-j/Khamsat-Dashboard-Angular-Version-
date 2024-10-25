@@ -9,54 +9,56 @@ button {
 table {
   width: 100%;
   border-collapse: collapse;
-  border: 1px solid #757474;
+  border: none;
   box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.6);
   border-radius: 8px;
   overflow: hidden;
-  
+
+  th, td {
+    border: 1px solid #757474;
+    padding: 8px 4px;
+    text-align: center !important;       
+  }
+
+  th {
+    background-color: #0a0a0a !important;
+    color: white !important; 
+    text-align: center !important; 
+  }
 }
 
-th, td {
-  border: 1px solid #757474;
-  padding: 8px;
-  text-align: center;
-}
+.mat-sort-header {
+  color: white !important; 
 
-th {
-  background-color: #0a0a0a !important;
-  color: white;
-  text-align: center;       
-  vertical-align: middle;   
-}
+  &.mat-sort-header-sorted {
+    color: white !important; 
+  }
 
+  .mat-sort-header-arrow {
+    color: white !important;
+  }
+
+  .mat-sort-header-container {
+    justify-content: center !important; 
+  }
+}
 
 .accept-button {
   background-color: green !important;
-  color: rgb(9, 9, 9) !important;
+  color: rgb(255, 255, 255) !important;
 }
 
 .pending-button {
   background-color: rgb(221, 42, 42) !important; 
-  color: rgb(9, 9, 9) !important;
+  color: rgb(255, 255, 255) !important;
 }
 
 .waiting-button {
   background-color: #fbb11c !important;
-  color: rgb(9, 9, 9) !important;
+  color: rgb(255, 255, 255) !important;
 }
 
 .details-button {
   background-color: rgb(122, 178, 211) !important;
-  color: rgb(9, 9, 9) !important;
-}
-
-
-#ID,
-#username,
-#status {
-  padding-left: 65px; 
-}
-
-#title{
-  padding-left:100px
+  color: rgb(255, 255, 255) !important;
 }

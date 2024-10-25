@@ -1,10 +1,11 @@
-import { Component, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, OnInit } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
+import { IService, ServiceService } from '../../services/service/service.service';
 
 @Component({
   selector: 'app-services-table',
@@ -20,28 +21,72 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ]
 })
-export class ServicesTableComponent implements AfterViewInit {
-  displayedColumns: string[] = ["id", "username", "title", "status", "decision", "details"];
+export class ServicesTableComponent implements AfterViewInit, OnInit {
+  displayedColumns: string[] = ['id', 'username', 'title', 'status', 'category', 'subcategory', 'details'];
 
-  dataSource = new MatTableDataSource([
-    { id: 1, username: 'Tom Collins', title: 'Website Development', status: 'Pending', decision: 'Pending', details: 'Details' },
-    { id: 2, username: 'Steve Johnson', title: 'Content Writing', status: 'Accepted', decision: 'Accepted', details: 'Details' },
-    { id: 3, username: 'Alice Brown', title: 'Legal Document Translation', status: 'Waiting for Approval', decision: 'Pending', details: 'Details' },
-    { id: 4, username: 'Michael Smith', title: 'SEO Optimization', status: 'Accepted', decision: 'Accepted', details: 'Details' },
-    { id: 5, username: 'Jessica White', title: 'Logo Design', status: 'Pending', decision: 'Pending', details: 'Details' },
-    { id: 6, username: 'David Wilson', title: 'Blog Creation', status: 'Waiting for Approval', decision: 'Pending', details: 'Details' },
-    { id: 7, username: 'Laura Taylor', title: 'Marketing Copywriting', status: 'Pending', decision: 'Pending', details: 'Details' },
-    { id: 8, username: 'James Davis', title: 'Educational Material Translation', status: 'Accepted', decision: 'Accepted', details: 'Details' },
-    { id: 9, username: 'Patricia Martin', title: 'Social Media Management', status: 'Pending', decision: 'Pending', details: 'Details' },
-    { id: 10, username: 'Robert Anderson', title: 'Web Application Development', status: 'Waiting for Approval', decision: 'Pending', details: 'Details' },
-    { id: 11, username: 'Robert Ande', title: 'Web Application Development', status: 'Waiting for Approval', decision: 'Pending', details: 'Details' }
-  ]);
+  servicesData: IService[] = []; 
+  loading: boolean = true; 
+  errorMessage: string | null = null;
+  dataSource = new MatTableDataSource<IService>(this.servicesData); 
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor() {}
+  constructor(private servicesLogic: ServiceService) {}
 
+  ngOnInit(): void {
+    this.getAllServices();
+    this.dataSource.paginator = this.paginator;
+  }
+
+  private getAllServices(): void {
+    this.loading = true;
+    this.servicesLogic.getAllServices().subscribe({
+      next: (res: IService[]) => {
+        if(res){
+          this.servicesData = res
+          this.dataSource.data = this.servicesData; 
+          console.log(this.servicesData);
+        }
+      },
+      error: (error) => {
+        this.errorMessage = error.error?.message || 'An error occurred while fetching services.'; 
+        console.error('Error fetching services:', error); 
+      },
+      complete: () => {
+        this.loading = false; 
+      }
+    });
+  }
+
+  onStatusChange(service: IService): void {
+    const newStatus = this.getNextStatus(service.status);    
+    if (newStatus) {
+      this.servicesLogic.updateServiceStatus(service._id, newStatus).subscribe({
+        next: (updatedService) => {
+          this.getAllServices();
+        },
+        error: (error) => {
+          console.error("Error updating service status:", error);
+        }
+      });
+    }
+  }
+
+  private getNextStatus(currentStatus: string): string | null {
+    switch (currentStatus) {
+      case 'waiting':
+        return 'accepted'; 
+      case 'accepted':
+        return 'pending'; 
+      case 'pending':
+        return 'accepted'; 
+      default:
+        return null; 
+    }
+  }
+
+  onDetailsClick(service:IService){}
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
