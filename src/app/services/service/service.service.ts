@@ -81,5 +81,5 @@ export class ServiceService {
 
   updateServiceStatus(serviceId: string, status: string): Observable<IService> {
     return this.http.patch<IService>(`${this.url}/dashboard/${serviceId}`, { status }, { withCredentials: true });
-}
+  }
 }

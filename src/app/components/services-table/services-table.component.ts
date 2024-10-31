@@ -46,7 +46,6 @@ export class ServicesTableComponent implements AfterViewInit, OnInit {
         if(res){
           this.servicesData = res
           this.dataSource.data = this.servicesData; 
-          console.log(this.servicesData);
         }
       },
       error: (error) => {

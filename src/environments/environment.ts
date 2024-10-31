@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl:  'http://localhost:4500/'
+    apiUrl:  'https://khamsat-api.vercel.app/'
 };

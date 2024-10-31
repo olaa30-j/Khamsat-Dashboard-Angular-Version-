@@ -1,7 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '../../layout/header/header.component';
-import { FooterComponent } from '../../layout/footer/footer.component';
 import { NavbarComponent } from '../../layout/navbar/navbar.component';
 import { SidebarService } from '../../services/sidebar/sidebar.service';
 import { CommonModule } from '@angular/common';
@@ -9,7 +8,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, NavbarComponent, CommonModule],
+  imports: [RouterOutlet, HeaderComponent, , NavbarComponent, CommonModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
