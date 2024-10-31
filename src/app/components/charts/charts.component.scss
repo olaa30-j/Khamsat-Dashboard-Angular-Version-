@@ -1,0 +1,53 @@
+/* Common styling for chart iframes */
+.chart-frame {
+    background: #ffffff;
+    border: none;
+    border-radius: 2px;
+    box-shadow: 0 2px 10px 0 rgba(70, 76, 79, 0.2);
+    height: 300px;
+}
+
+/* Row styles */
+.chart-row, .chart-row-second, .chart-row-third {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+/* Specific layout for the first row with three equally sized iframes */
+.chart-row .chart-frame {
+    flex: 1; 
+}
+
+/* Iframe sizes for different rows */
+.chart-frame-large {
+    flex: 5;
+    height: 500px;
+}
+
+.chart-frame-small, .chart-frame-medium {
+    flex: 1;
+    height: 300px;
+}
+
+/* Adjust last row to resemble second row layout */
+.chart-row-third .chart-frame-large {
+    flex: 5;
+    height: 480px;
+}
+
+.chart-row-third .chart-frame-small {
+    flex: 1;
+    height: 480px;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .chart-row, .chart-row-second, .chart-row-third {
+        flex-direction: column;
+    }
+    .chart-frame {
+        width: 100%;
+        height: auto;
+    }
+}
