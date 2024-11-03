@@ -23,9 +23,14 @@ export interface JwtPayload {
 export class NavbarComponent implements OnInit {
   userData: JwtPayload | null = null
   constructor(private AuthenticationService: AuthenticationService, public sidebarService: SidebarService) { }
+  isDropdownVisible = false;
 
   isSidebarOpen: boolean = true;
   currentSidebarTab: string | null = 'linksTab';
+
+  toggleDropdown() {
+    this.isDropdownVisible = !this.isDropdownVisible;
+  }
 
   toggleMessagePanel() {
     this.isSidebarOpen = !this.isSidebarOpen;
@@ -46,6 +51,10 @@ export class NavbarComponent implements OnInit {
     this.sidebarService.currentSidebarTab$.subscribe( tab => {
       this.currentSidebarTab = tab;
     });
+  }
+
+  logout(){
+    this.AuthenticationService.logout()
   }
 
   toggleSidebar(tab: string) {
