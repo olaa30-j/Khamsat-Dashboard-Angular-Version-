@@ -23,8 +23,7 @@ import { IUser, UsersService } from '../../services/users/users.service';
 })
 export class UsersTableComponent implements AfterViewInit, OnInit {
   displayedColumns: string[] = [
-    "profilePicture", "username", "accountType", "email", "emailVerification", 
-     "gender", "birthdate", "financialInfo"
+    "profilePicture", "username", "accountType", "email", "emailVerification"
   ];
 
   usersData: IUser[] = []; 
@@ -63,6 +62,20 @@ export class UsersTableComponent implements AfterViewInit, OnInit {
     });
   }
 
+  onStatusChange(userId: string, currentStatus: boolean): void {
+    const newStatus = !currentStatus;
+    if (newStatus !== currentStatus) {
+      this.usersLogic.updateUserStatus(userId, newStatus).subscribe({
+        next: () => {
+          this.getAllUsers();
+        },
+        error: (error) => {
+          console.error("Error updating service status:", error);
+        }
+      });
+    }
+  }
+  
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
