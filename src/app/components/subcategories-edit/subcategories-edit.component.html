@@ -1,0 +1,121 @@
+<!-- Edit Dialog -->
+<div *ngIf="showEditDialog"
+    class="pointer-events-auto fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 transition-opacity duration-300">
+
+    <div data-dialog="edit-subcategory-dialog" role="dialog" aria-labelledby="edit-dialog-title"
+        class="relative mx-auto w-full max-w-[36rem] max-h-[90vh] rounded-[20px] p-4 shadow-sm">
+        <div class="relative flex flex-col bg-white h-full">
+            <div>
+                <h6 class="border-b border-gray-400 text-primary pt-4 pb-2 px-4">Edit SubCategory</h6>
+            </div>
+
+            <form [formGroup]="editSubcategoryForm" (ngSubmit)="updateSubcategory()"
+                class="px-4 max-h-[70vh] overflow-y-auto">
+                <div class="flex flex-col gap-4 py-2">
+
+                    <!-- Main Category Selection -->
+                    <div class="w-full max-w-lg min-w-[200px] my-3">
+                        <label class="block mb-2 text-sm text-secondary">Main Category</label>
+                        <select
+                            class="w-full bg-transparent placeholder:text-primary text-black text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-secondary hover:border-slate-300 shadow-sm focus:shadow"
+                            formControlName="category_id" required>
+                            <option value="" disabled>Select a Main Category</option>
+                            <option *ngFor="let category of CategoriesData" [value]="category._id">
+                                {{ category.name.en }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <!-- Title Arabic -->
+                    <div formGroupName="title">
+                        <div class="w-full max-w-lg min-w-[200px] my-3">
+                            <label class="block mb-2 text-sm text-secondary">SubCategory Title (AR)</label>
+                            <input formControlName="ar" type="text"
+                                class="w-full bg-transparent placeholder:text-primary text-black text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-secondary hover:border-slate-300 shadow-sm focus:shadow"
+                                placeholder="ادخل التصنيف باللغة العربية" required />
+                            <div *ngIf="titleAr?.invalid && titleAr?.touched">
+                                <small class="text-red-600 p-2" *ngIf="titleAr?.errors?.['required']">Category Name (AR)
+                                    is
+                                    required.</small>
+                                <small class="text-red-600 p-2" *ngIf="titleAr?.errors?.['minlength']">Must be at least
+                                    3
+                                    characters.</small>
+                                <small class="text-red-600 p-2" *ngIf="titleAr?.errors?.['maxlength']">Cannot exceed 50
+                                    characters.</small>
+                            </div>
+                        </div>
+
+                        <!-- Title English -->
+                        <div class="w-full max-w-lg min-w-[200px] my-6">
+                            <label class="block mb-2 text-sm text-secondary">SubCategory Title (EN)</label>
+                            <input formControlName="en" type="text"
+                                class="w-full bg-transparent placeholder:text-primary text-black text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-secondary hover:border-slate-300 shadow-sm focus:shadow"
+                                placeholder="English Name" required />
+                            <div *ngIf="titleEn?.invalid && titleEn?.touched">
+                                <small class="text-red-600 p-2" *ngIf="titleEn?.errors?.['required']">Category Name (EN)
+                                    is
+                                    required.</small>
+                                <small class="text-red-600 p-2" *ngIf="titleEn?.errors?.['minlength']">Must be at least
+                                    3
+                                    characters.</small>
+                                <small class="text-red-600 p-2" *ngIf="titleEn?.errors?.['maxlength']">Cannot exceed 50
+                                    characters.</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div formArrayName="subcategories" class="mb-3">
+                        <p class="my-4">Nested Subcategories</p>
+
+                        <div *ngFor="let subcategory of subcategories.controls; let i = index" [formGroupName]="i"
+                            class="border p-4 my-2 rounded">
+
+                            <div formGroupName="title">
+                                <!-- Subcategory Title (AR) -->
+                                <div class="my-3">
+                                    <label class="block mb-2 text-sm text-secondary">Subcategory Title (AR)</label>
+                                    <input formControlName="ar" type="text" placeholder="Arabic Subcategory Name"
+                                        class="w-full bg-transparent placeholder:text-primary text-black text-sm border border-none rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-none shadow-sm focus:shadow" />
+                                </div>
+
+                                <!-- Subcategory Title (EN) -->
+                                <div class="my-3">
+                                    <label class="block mb-2 text-sm text-secondary">Subcategory Title (EN)</label>
+                                    <input formControlName="en" type="text" placeholder="English Subcategory Name"
+                                        class="w-full bg-transparent placeholder:text-primary text-black text-sm border border-none rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-none shadow-sm focus:shadow" />
+                                </div>
+                            </div>
+
+                            <div class="text-end">
+                                <button type="button" class="text-white bg-red-500 text-sm rounded-md px-4 py-2"
+                                    (click)="removeSubcategory(i)">Remove</button>
+                            </div>
+                        </div>
+
+                        <div class="flex text-blue-600 my-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="size-5">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                            </svg>
+                            <button type="button" class="px-2" (click)="addSubcategory()">Add Subcategory</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit and Cancel Buttons -->
+                <div class="py-6 pt-0 flex justify-between">
+                    <button [disabled]="editSubcategoryForm.invalid"
+                        class="w-[65%] rounded-md bg-black py-2 px-4 text-sm text-white transition shadow-md hover:shadow-lg disabled:opacity-50"
+                        type="submit">
+                        Save Changes
+                    </button>
+
+                    <button (click)="closeDialog()"
+                    class="w-[25%] rounded-md bg-red-600 py-2 px-4 text-sm text-white transition shadow-md hover:shadow-lg"
+                    type="button">
+                    Cancel
+                    </button> 
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

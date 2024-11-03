@@ -1,64 +1,94 @@
 mat-card {
   margin: 2%;
-}
-
-button {
-  margin: 2px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  border: none;
-  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.6);
-  border-radius: 8px;
-  overflow: hidden;
-
-  th, td {
-    border: 1px solid #757474;
-    padding: 8px 4px;
-    text-align: center !important;       
+  background: white !important;
+  mat-card-title{
+    margin-top: 15px;
+    margin-bottom: 25px;
   }
-
-  th {
-    background-color: #0a0a0a !important;
-    color: white !important; 
-    text-align: center !important; 
+  mat-paginator{
+    background-color: white !important;
   }
-}
-
-.mat-sort-header {
-  color: white !important; 
-
-  &.mat-sort-header-sorted {
-    color: white !important; 
-  }
-
-  .mat-sort-header-arrow {
+  mat-header-cell, mat-sort-header, th {
+    text-align: center !important;
     color: white !important;
+    background: white !important;
   }
-
-  .mat-sort-header-container {
-    justify-content: center !important; 
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #cacaca;
+    border-radius: 4px;
+    border: none;
+    overflow: hidden;
+    padding: 1rem;
+    background: white !important;
+    margin-bottom: 15px;
+    box-shadow: none;
+    text-align: center !important;       
+  
+    th, td {
+      border-bottom: 1px solid #cacaca;
+      padding: 8px 4px;
+      text-align: center !important;       
+    }
+  
+    th {
+      background-color: #000 !important;
+      color: white !important; 
+    }
+    
+    .delete-button{
+      color:  rgb(235, 0, 0);         
+      border-radius: 20px;    
+      border: none;          
+      transition: background-color 0.2s ease; 
+      padding: 0 !important;
+      width: fit-content;
+    
+      &:hover {
+        background-color: rgba(235, 0, 0, 0.799); 
+        color: white;           
+      }
+    }
+  
   }
 }
-
-.accept-button {
-  background-color: green !important;
-  color: rgb(255, 255, 255) !important;
+  
+.active-button {
+  box-shadow: none;
+  border-radius: 4px;
+  background-color: rgb(222, 247, 236 ) !important;
+  color: rgb(3, 84, 63 ) !important;
 }
 
-.pending-button {
-  background-color: rgb(221, 42, 42) !important; 
-  color: rgb(255, 255, 255) !important;
+.rejected-button {
+  box-shadow: none;
+  border-radius: 4px;
+  background-color: rgba(221, 42, 42, 0.349)  !important;
+  color: #dd2a2a  !important;
 }
 
 .waiting-button {
-  background-color: #fbb11c !important;
-  color: rgb(255, 255, 255) !important;
+  box-shadow: none;
+  border-radius: 4px;
+  background-color: rgba(251, 177, 28, 0.349)  !important;
+  color: #fbb11c !important;
+}
+
+.paused-button {
+  box-shadow: none;
+  border-radius: 4px;
+  background-color: rgba(158, 16, 171, 0.349)  !important;
+  color: rgb(158, 16, 171) !important;
 }
 
 .details-button {
-  background-color: rgb(122, 178, 211) !important;
-  color: rgb(255, 255, 255) !important;
+  background-color: transparent !important;
+  box-shadow: none;
+  border-radius: 4px;
+  color: rgb(29 78 216) !important;
+  &:hover {
+    background-color: #1d4ed8 !important; 
+    color: white !important;           
+  }
 }

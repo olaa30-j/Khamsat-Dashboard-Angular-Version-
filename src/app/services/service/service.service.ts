@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
+import { SingleService } from '../../views/service-details/service-details.component';
 
 export interface IKeyword {
   title: {
@@ -55,7 +56,7 @@ export interface IService {
     activeOrders: number;
     averageResponseTime: number;
   };
-  status: 'waiting' | 'accepted' | 'paused';
+  status: 'waiting' | 'active' | 'paused' | 'rejected';
   createdAt?: Date;
   updatedAt?: Date;
   _id: string;
@@ -67,6 +68,7 @@ export interface IService {
 
 export class ServiceService {
   services: IService[] = [];
+  service: SingleService | null= null;
   private url: string = `${environment.apiUrl}services`;
 
   constructor(private http: HttpClient) {}
@@ -79,6 +81,13 @@ export class ServiceService {
     );
   }
 
+  getServiceById(serviceId: string):Observable<SingleService>{
+    return this.http.get<SingleService>(`${this.url}/${serviceId}`).pipe(
+      tap((response) => {        
+        this.service = response; 
+      })
+    )
+  }
   updateServiceStatus(serviceId: string, status: string): Observable<IService> {
     return this.http.patch<IService>(`${this.url}/dashboard/${serviceId}`, { status }, { withCredentials: true });
   }

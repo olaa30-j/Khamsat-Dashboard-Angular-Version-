@@ -40,7 +40,7 @@
                 <label class="block mb-2 text-sm text-black">Description (AR)</label>
                 <input formControlName="ar" type="text"
                   class="w-full bg-transparent placeholder:text-primary text-black text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-secondary hover:border-slate-300 shadow-sm focus:shadow"
-                  placeholder="Arabic Description" required />
+                  placeholder="Arabic Description" required >
                 <div *ngIf="descAr?.invalid && descAr?.touched">
                   <small class="text-red py-2" *ngIf="descAr?.errors?.['required']">Description (AR) is required.</small>
                   <small class="text-red py-2" *ngIf="descAr?.errors?.['minlength']">Must be at least 3 characters.</small>

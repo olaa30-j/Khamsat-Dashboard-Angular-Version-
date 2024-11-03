@@ -31,32 +31,32 @@ mat-card {
       background-color: #000 !important;
       color: white !important; 
     }
-  
-    .delete-button{
-      color:  rgb(235, 0, 0);         
-      border-radius: 20px;    
-      border: none;          
-      transition: background-color 0.2s ease; 
-      padding: 0 !important;
-      width: fit-content;
     
-      &:hover {
-        background-color: rgba(235, 0, 0, 0.799); 
-        color: white;           
+      .delete-button{
+        color:  rgb(235, 0, 0);         
+        border-radius: 20px;    
+        border: none;          
+        transition: background-color 0.2s ease; 
+        padding: 0 !important;
+        width: fit-content;
+      
+        &:hover {
+          background-color: rgba(235, 0, 0, 0.799); 
+          color: white;           
+        }
       }
+    
+    }
+  }
+  
+  button {
+    margin: 2px;
+  }
+  
+  
+  
+    #upgrades{
+      padding-left: 85px;
     }
   
-  }
-}
-
-button {
-  margin: 2px;
-}
-
-
-
-  #upgrades{
-    padding-left: 85px;
-  }
-
-  
+    

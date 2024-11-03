@@ -7,6 +7,9 @@ import { AdminsComponent } from './views/admins/admins.component';
 import { UsersComponent } from './views/users/users.component';
 import { ServicesComponent } from './views/services/services.component';
 import { CategoriesComponent } from './views/categories/categories.component';
+import { SubcategoriesComponent } from './views/subcategories/subcategories.component';
+import { ServiceDetailsComponent } from './views/service-details/service-details.component';
+import { ServiceLayoutComponent } from './views/service-layout/service-layout.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -18,8 +21,16 @@ export const routes: Routes = [
       { path: 'home', component: HomeComponent },
       { path: 'admins', component: AdminsComponent },
       { path: 'users', component: UsersComponent },
-      { path: 'services', component: ServicesComponent },
+      { 
+        path: 'services', 
+        component: ServiceLayoutComponent, 
+        children: [
+          {path:'table', component:ServicesComponent},
+          { path: ':id', component: ServiceDetailsComponent },
+        ]
+      },
       { path: 'categories', component: CategoriesComponent },
+      { path: 'subcategories', component: SubcategoriesComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' } 
     ]
   },

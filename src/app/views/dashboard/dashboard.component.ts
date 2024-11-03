@@ -8,7 +8,12 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterOutlet, HeaderComponent, , NavbarComponent, CommonModule],
+  imports: [
+    CommonModule,
+    HeaderComponent,
+    RouterOutlet,
+    NavbarComponent
+  ],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })

@@ -5,6 +5,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        'bona-nova-regular': ['"Bona Nova SC"', 'serif'],
+        'bona-nova-bold': ['"Bona Nova SC"', 'serif'],
+        'bona-nova-italic': ['"Bona Nova SC"', 'serif']
+      },
       colors:{
         primary:"#3c3c3c",
         secondary:"#fab51f",
