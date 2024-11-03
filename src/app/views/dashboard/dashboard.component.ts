@@ -50,14 +50,14 @@ export class DashboardComponent implements OnInit {
       this.contentWidth = '75vw';
       if (windowWidth < 768) {
         this.sidebarWidth = '10vw';
-        this.contentWidth = '90vw';
+        this.contentWidth = '89vw';
       } else {
         this.sidebarWidth = '23.5vw';
         this.contentWidth = '75vw';
       }
     } else {
-      this.sidebarWidth = '18vw';
-      this.contentWidth = '82vw';  
+      this.sidebarWidth = '10vw';
+      this.contentWidth = '89vw';  
     }
   }
 }
