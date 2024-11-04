@@ -1,15 +1,17 @@
 <div *ngIf="showDialog" class="pointer-events-auto fixed inset-0 z-[999] grid h-screen w-screen place-items-center bg-black bg-opacity-60 transition-opacity duration-300">
-    <div data-dialog="new-category-dialog" role="dialog" aria-labelledby="dialog-title" class="relative mx-auto w-full max-w-[32rem] rounded-lg overflow-hidden shadow-sm">
-      <div class="relative flex flex-col bg-white">
-        <div class="m-2.5 text-center text-white py-6 rounded-md bg-black">
-          <h5>Edit Category</h5>
-        </div>
-        <form [formGroup]="categoryForm" (ngSubmit)="updateCategory()">
-          <div class="flex flex-col gap-4 p-6">
+    <div data-dialog="new-category-dialog" role="dialog" aria-labelledby="edit-dialog-title"
+    class="relative mx-auto w-full max-w-[36rem] max-h-[90vh] rounded-[20px] p-4 shadow-sm">
+    <div class="relative flex flex-col bg-white h-full">
+        <div>
+            <h6 class="border-b border-gray-400 text-primary pt-4 pb-2 px-4">Edit Category</h6>
+        </div> 
+
+        <form [formGroup]="categoryForm" (ngSubmit)="updateCategory()" class="px-4 max-h-[70vh] overflow-y-auto">
+            <div class="flex flex-col gap-4 py-2">
             <!-- Name Arabic -->
             <div formGroupName="name">
               <div class="w-full max-w-lg min-w-[200px] my-3">
-                <label class="block mb-2 text-sm text-black">Category Name (AR)</label>
+                <label class="block mb-2 text-sm text-secondary">Category Name (AR)</label>
                 <input formControlName="ar" type="text"
                   class="w-full bg-transparent placeholder:text-primary text-black text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-secondary hover:border-slate-300 shadow-sm focus:shadow"
                   placeholder="Arabic Name" required />
@@ -22,7 +24,7 @@
   
               <!-- Name English -->
               <div class="w-full max-w-lg min-w-[200px] my-3">
-                <label class="block mb-2 text-sm text-black">Category Name (EN)</label>
+                <label class="block mb-2 text-sm text-secondary">Category Name (EN)</label>
                 <input formControlName="en" type="text"
                   class="w-full bg-transparent placeholder:text-primary text-black text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-secondary hover:border-slate-300 shadow-sm focus:shadow"
                   placeholder="English Name" required />
@@ -37,7 +39,7 @@
             <!-- Description Arabic -->
             <div formGroupName="description">
               <div class="w-full max-w-lg min-w-[200px] my-3">
-                <label class="block mb-2 text-sm text-black">Description (AR)</label>
+                <label class="block mb-2 text-sm text-secondary">Description (AR)</label>
                 <input formControlName="ar" type="text"
                   class="w-full bg-transparent placeholder:text-primary text-black text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-secondary hover:border-slate-300 shadow-sm focus:shadow"
                   placeholder="Arabic Description" required >
@@ -50,7 +52,7 @@
   
               <!-- Description English -->
               <div class="w-full max-w-lg min-w-[200px] my-3">
-                <label class="block mb-2 text-sm text-black">Description (EN)</label>
+                <label class="block mb-2 text-sm text-secondary">Description (EN)</label>
                 <input formControlName="en" type="text"
                   class="w-full bg-transparent placeholder:text-primary text-black text-sm border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus:outline-none focus:border-secondary hover:border-slate-300 shadow-sm focus:shadow"
                   placeholder="English Description" required />
@@ -64,13 +66,19 @@
           </div>
   
           <!-- Submit Button -->
-          <div class="p-6 pt-0">
+          <div class="py-6 pt-0 flex justify-between">
             <button [disabled]="categoryForm.invalid"
-              class="w-full rounded-md bg-black py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-black focus:shadow-none active:bg-black hover:bg-black active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              type="submit">
-              Edit Category
+                class="w-[65%] rounded-md bg-black py-2 px-4 text-sm text-white transition shadow-md hover:shadow-lg disabled:opacity-50"
+                type="submit">
+                Save Changes
             </button>
-          </div>
+
+            <button (click)="closeDialog()"
+            class="w-[25%] rounded-md bg-red-600 py-2 px-4 text-sm text-white transition shadow-md hover:shadow-lg"
+            type="button">
+            Cancel
+            </button> 
+        </div>
         </form>
       </div>
     </div>

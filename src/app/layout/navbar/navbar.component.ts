@@ -2,6 +2,7 @@ import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { AuthenticationService } from '../../services/authentication.service';
 import { CommonModule } from '@angular/common';
 import { SidebarService } from '../../services/sidebar/sidebar.service';
+import { NotificationService } from '../../services/notification/notification-service.service';
 
 export interface JwtPayload {
   role: string;
@@ -22,9 +23,11 @@ export interface JwtPayload {
 
 export class NavbarComponent implements OnInit {
   userData: JwtPayload | null = null
-  constructor(private AuthenticationService: AuthenticationService, public sidebarService: SidebarService) { }
-  isDropdownVisible = false;
-
+  constructor(private AuthenticationService: AuthenticationService, public sidebarService: SidebarService, private notificationService:NotificationService) {
+   }
+  isDropdownVisible: boolean= false;
+  notifications: any[] = [];
+  isNotificationOpen: boolean = false
   isSidebarOpen: boolean = true;
   currentSidebarTab: string | null = 'linksTab';
 
@@ -37,11 +40,6 @@ export class NavbarComponent implements OnInit {
     this.currentSidebarTab = 'messagesTab';
   }
 
-  toggleNotificationsPanel() {
-    this.isSidebarOpen = !this.isSidebarOpen;
-    this.currentSidebarTab = 'notificationsTab';
-  }
-
   ngOnInit(): void {
     this.userData = this.AuthenticationService.getUserData() as JwtPayload
     this.sidebarService.isSidebarOpen$.subscribe(isOpen => {
@@ -51,6 +49,15 @@ export class NavbarComponent implements OnInit {
     this.sidebarService.currentSidebarTab$.subscribe( tab => {
       this.currentSidebarTab = tab;
     });
+
+    this.notificationService.getServiceCreatedNotification().subscribe((data) => {
+      this.notifications.push(data);
+    });
+  }
+
+
+  toggleNotification() {
+      this.isNotificationOpen = !this.isNotificationOpen;
   }
 
   logout(){
