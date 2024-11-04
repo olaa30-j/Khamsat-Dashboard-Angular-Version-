@@ -110,9 +110,9 @@ export class ServicesTableComponent implements AfterViewInit, OnInit, OnDestroy 
             serviceTitle: service.title.en,
             timestamp: new Date().toISOString(),
           };
-
+          console.log(service)
           // Send notification through socket
-          this.socketService.sendNotification(service.userId.username, notification);
+          this.socketService.sendNotification(service.userId._id, notification);
           
           console.log('Notification sent:', notification);
         },
