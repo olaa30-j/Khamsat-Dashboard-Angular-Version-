@@ -106,7 +106,8 @@ export class ServicesTableComponent implements AfterViewInit, OnInit, OnDestroy 
             id: crypto.randomUUID(), // Generate unique ID
             message: this.getStatusMessage(newStatus, service.title.en),
             status: this.mapStatus(newStatus),
-            serviceLink: `/services/${service._id}`,
+            serviceLink: `/categories/${service.category.name.en}/${service.subcategory.title.en}/${service._id}`,
+                      // `/categories/Programming%20&%20Development/Website%20Development/67257a39865b27266be567bf`
             serviceTitle: service.title.en,
             timestamp: new Date().toISOString(),
           };

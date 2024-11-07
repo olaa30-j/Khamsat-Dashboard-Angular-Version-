@@ -32,6 +32,7 @@ export class SocketService {
   onNotification() {
     return new Observable<{ message: string }>(observer => {
       this.socket.on('notification', (data: { message: string }) => {
+        console.log("notification")
         observer.next(data);
       });
 
