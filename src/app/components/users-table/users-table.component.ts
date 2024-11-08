@@ -49,7 +49,6 @@ export class UsersTableComponent implements AfterViewInit, OnInit {
         if(res){
           this.usersData = res
           this.dataSource.data = this.usersData; 
-          console.log(this.usersData);
         }
       },
       error: (error) => {

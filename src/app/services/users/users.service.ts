@@ -48,7 +48,6 @@ export class UsersService {
   getAllUsers(): Observable<IUser[]> {
     return this.http.get<IUser[]>(`${this.url}`, { withCredentials: true }).pipe(
       tap((response) => {
-        console.log(response);
         this.users = response;
       }),
       catchError((error) => {

@@ -82,7 +82,6 @@ export class SubcategoriesComponent implements OnInit{
   createSubcategory() {
     if (this.subcategoryForm.valid) {
       const newSubcategory: ISubCategories = this.subcategoryForm.value;
-      console.log(newSubcategory);
       
       this.subcategoriesService.createSubcategory(newSubcategory).subscribe({
         next: (createdCategory) => {

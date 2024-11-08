@@ -36,7 +36,6 @@ export class CategoriesService {
       tap((response) => {
         this.categoriesData = response.categories; 
         this.categoriesUpdatedSource.next(this.categoriesData); 
-        console.log('Categories:', this.categoriesData); 
       }),
       map(response => response.categories) 
     );
@@ -47,7 +46,6 @@ export class CategoriesService {
       tap((newCategory) => {
         this.categoriesData.push(newCategory);
         this.categoriesUpdatedSource.next(this.categoriesData);
-        console.log('New Category Added:', newCategory);
       })
     );
 

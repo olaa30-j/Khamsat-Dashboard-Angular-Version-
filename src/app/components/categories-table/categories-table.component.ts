@@ -63,7 +63,6 @@ export class CategoriesTableComponent implements AfterViewInit, OnInit, OnDestro
   }
 
   openEditDialog(element: ICategory) {
-    console.log('open');
     const dialogRef = this.dialog.open(EditCategoryComponent, {
       data: element,
     });

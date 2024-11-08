@@ -59,7 +59,6 @@ export class SubcategoriesService {
       tap((newSubcategory) => {
         this.subCategoriesData.push(newSubcategory);
         this.subcategoriesUpdateSource.next(this.subCategoriesData);
-        console.log('New Category Added:', newSubcategory);
       })
     );
 
