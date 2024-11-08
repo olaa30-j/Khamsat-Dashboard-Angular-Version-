@@ -15,7 +15,7 @@
           </button>
 
           <!-- Messages Toggle Button -->
-          <button (click)="toggleMessagePanel()"
+          <!-- <button (click)="toggleMessagePanel()"
             class="p-2 transition-colors rounded-md shadow-md hover:bg-secondary hover:text-white focus:outline-none text-gray-500"
             [ngClass]="(isSidebarOpen &&  currentSidebarTab === 'messagesTab') ? 'text-white bg-secondary' : 'text-gray-500 bg-white'">
             <span class="sr-only">Toggle message panel</span>
@@ -25,7 +25,7 @@
                 d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z">
               </path>
             </svg>
-          </button>
+          </button> -->
 
           <!-- Notifications Button and Dropdown -->
           <div class="relative">
@@ -47,8 +47,8 @@
             <!-- Notifications Dropdown -->
             <div *ngIf="isNotificationOpen"
               class="absolute left-0 mt-2 w-80 bg-white border border-gray-200 rounded-md shadow-lg z-10">
-              <div class="p-3 border-b border-gray-200 flex justify-between items-center">
-                <div class="text-lg font-semibold">Notifications</div>
+              <div class="p-3 border-b border-gray-200 flex justify-between bg-gray-100 items-center">
+                <div class="text-md font-semibold text-gray-900">Notifications</div>
                 <button *ngIf="notifications.length > 0" 
                         (click)="clearAllNotifications()"
                         class="text-sm text-gray-500 hover:text-secondary">
@@ -93,9 +93,9 @@
               <!-- Profile Dropdown -->
               <div *ngIf="isDropdownVisible"
                 class="absolute top-[34px] right-0 mt-2 w-60 bg-white rounded-md shadow-lg z-10">
-                <div class="px-4 py-3 border-b bg-secondary">
-                  <div class="text-base font-medium leading-none text-white mb-2">{{ userData?.userName }}</div>
-                  <div class="text-sm font-medium leading-none text-gray-200">{{ userData?.email }}</div>
+                <div class="px-4 py-3 border-b bg-gray-100 rounded-md">
+                  <div class="text-base font-medium leading-none text-black mb-2">{{ userData?.userName }}</div>
+                  <div class="text-sm font-medium leading-none text-primary">{{ userData?.email }}</div>
                 </div>
 
                 <ul class="py-1">

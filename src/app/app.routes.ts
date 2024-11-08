@@ -10,6 +10,7 @@ import { CategoriesComponent } from './views/categories/categories.component';
 import { SubcategoriesComponent } from './views/subcategories/subcategories.component';
 import { ServiceDetailsComponent } from './views/service-details/service-details.component';
 import { ServiceLayoutComponent } from './views/service-layout/service-layout.component';
+import { OrdersComponent } from './views/orders/orders.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -31,6 +32,7 @@ export const routes: Routes = [
       },
       { path: 'categories', component: CategoriesComponent },
       { path: 'subcategories', component: SubcategoriesComponent },
+      { path: 'orders', component: OrdersComponent},
       { path: '', redirectTo: 'home', pathMatch: 'full' } 
     ]
   },

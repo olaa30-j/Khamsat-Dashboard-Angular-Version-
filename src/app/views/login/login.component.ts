@@ -14,11 +14,12 @@ import { CommonModule } from '@angular/common';
 
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  errorMessage: string | null = null;
 
   constructor(private authenticationService: AuthenticationService, private formBuilder: FormBuilder) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
 
@@ -28,6 +29,8 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
       this.authenticationService.login(email, password); 
+      console.log( this.errorMessage);
+      this.errorMessage = this.authenticationService.errorMessage
     }
   }
 }
