@@ -19,15 +19,18 @@ export interface JwtPayload {
   styleUrl: './navbar.component.scss'
 })
 
-
-
 export class NavbarComponent implements OnInit {
-  userData: JwtPayload | null = null
-  constructor(private AuthenticationService: AuthenticationService, public sidebarService: SidebarService, private notificationService:NotificationService) {
-   }
-  isDropdownVisible: boolean= false;
-  notifications: any[] = [];
-  isNotificationOpen: boolean = false
+  userData: JwtPayload | null = null;
+  constructor(
+    private AuthenticationService: AuthenticationService, 
+    public sidebarService: SidebarService, 
+    private notificationService: NotificationService
+  ) {}
+  
+  isDropdownVisible: boolean = false;
+  // Initialize notifications array as empty
+  notifications: any[] = [];  
+  isNotificationOpen: boolean = false;
   isSidebarOpen: boolean = true;
   currentSidebarTab: string | null = 'linksTab';
 
@@ -41,30 +44,59 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userData = this.AuthenticationService.getUserData() as JwtPayload
+    this.userData = this.AuthenticationService.getUserData() as JwtPayload;
+    
+    // Retrieve saved notifications from localStorage when component initializes
+    const savedNotifications = localStorage.getItem('notifications');
+    if (savedNotifications) {
+      this.notifications = JSON.parse(savedNotifications);
+    }
+
+    // Subscribe to sidebar state changes
     this.sidebarService.isSidebarOpen$.subscribe(isOpen => {
       this.isSidebarOpen = isOpen;
     });
 
-    this.sidebarService.currentSidebarTab$.subscribe( tab => {
+    // Subscribe to sidebar tab changes
+    this.sidebarService.currentSidebarTab$.subscribe(tab => {
       this.currentSidebarTab = tab;
     });
 
+    // Subscribe to new notifications
     this.notificationService.getServiceCreatedNotification().subscribe((data) => {
+      // Add new notification to the array
       this.notifications.push(data);
+      // Save updated notifications to localStorage
+      this.saveNotificationsToLocalStorage();
     });
   }
 
-
-  toggleNotification() {
-      this.isNotificationOpen = !this.isNotificationOpen;
+  // Helper function to save notifications to localStorage
+  private saveNotificationsToLocalStorage() {
+    localStorage.setItem('notifications', JSON.stringify(this.notifications));
   }
 
-  logout(){
-    this.AuthenticationService.logout()
+  // Remove a specific notification by index
+  removeNotification(index: number) {
+    this.notifications.splice(index, 1);
+    this.saveNotificationsToLocalStorage();
+  }
+
+  // Clear all notifications
+  clearAllNotifications() {
+    this.notifications = [];
+    this.saveNotificationsToLocalStorage();
+  }
+
+  toggleNotification() {
+    this.isNotificationOpen = !this.isNotificationOpen;
+  }
+
+  logout() {
+    this.AuthenticationService.logout();
   }
 
   toggleSidebar(tab: string) {
-    return this.sidebarService.toggleSidebar(tab)
+    return this.sidebarService.toggleSidebar(tab);
   }
 }

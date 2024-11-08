@@ -3,6 +3,7 @@
     <div class="mx-auto max-w-7xl px-4">
       <div class="flex h-16 items-center justify-between">
         <div class="flex gap-3">
+          <!-- Sidebar Toggle Button -->
           <button (click)="toggleSidebar('linksTab')"
             class="p-2 transition-colors hidden md:block rounded-md shadow-md hover:bg-secondary hover:text-white focus:outline-none text-gray-500"
             [ngClass]="(isSidebarOpen &&  currentSidebarTab === 'linksTab') ? 'text-white bg-secondary' : 'text-gray-500 bg-white'">
@@ -13,8 +14,9 @@
             </svg>
           </button>
 
-          <button (click)="toggleSidebar('messagesTab')"
-            class="p-2 transition-colors rounded-md shadow-md hover:bg-secondary hover:text-white focus:outline-none text-gray-500 "
+          <!-- Messages Toggle Button -->
+          <button (click)="toggleMessagePanel()"
+            class="p-2 transition-colors rounded-md shadow-md hover:bg-secondary hover:text-white focus:outline-none text-gray-500"
             [ngClass]="(isSidebarOpen &&  currentSidebarTab === 'messagesTab') ? 'text-white bg-secondary' : 'text-gray-500 bg-white'">
             <span class="sr-only">Toggle message panel</span>
             <svg aria-hidden="true" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -25,84 +27,87 @@
             </svg>
           </button>
 
+          <!-- Notifications Button and Dropdown -->
           <div class="relative">
             <button (click)="toggleNotification()"
-                class="p-2 transition-colors rounded-md shadow-md hover:bg-secondary hover:text-white focus:outline-none text-gray-500">
-                <span class="sr-only">Toggle notifications panel</span>
-                <svg aria-hidden="true" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
-                    </path>
-                </svg>
-            </button>
-        
-            <!-- Dropdown Menu -->
-            <div *ngIf="isNotificationOpen" class="absolute left-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10">
-                <div *ngFor="let notification of notifications" class="p-2 text-gray-800 hover:bg-gray-100 cursor-pointer">
-                    {{ notification.message }} 
-                </div>
-                <div *ngIf="notifications.length === 0" class="p-2 text-gray-500">
-                    No new notifications.
-                </div>
-            </div>
-        </div>
-        
-        </div>
-
-        <div class="pb-3 pt-4">
-          <div class="flex items-center px-5">
-            <!-- Profile Picture -->
-            <div class="flex-shrink-0 relative">
-              <img
-                class="h-10 w-10 rounded-full cursor-pointer relative"
-                [src]="userData?.profile_picture_url"
-                alt="User profile picture"
-                (click)="toggleDropdown()"
-              />
-        
-            <!-- Dropdown Menu -->
-            <div *ngIf="isDropdownVisible" class="absolute top-[34px] right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
-              <div class="px-4 py-3 border-b bg-black">
-                <div class="text-base font-medium leading-none text-white mb-2">{{ userData?.userName }}</div>
-                <div class="text-sm font-medium leading-none text-gray-200">{{ userData?.email }}</div>
-              </div>
-        
-              <ul class="py-1">
-                <li class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">Profile</li>
-                <li class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">Settings</li>
-                <li class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer" (click)="logout()">Logout</li>
-              </ul>
-            </div>
-          </div>
-
-            <!-- Sidebar Toggle Button -->
-            <button
-              (click)="toggleSidebar('linksTab')"
-              class="p-2 transition-colors rounded-md focus:outline-none text-gray-500 bg-white"
-              [ngClass]="(isSidebarOpen && currentSidebarTab === 'linksTab') ? 'text-secondary' : 'text-gray-500'"
-            >
-              <span class="sr-only">Settings</span>
-              <svg
-                aria-hidden="true"
-                class="w-6 h-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                ></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              class="p-2 transition-colors rounded-md shadow-md hover:bg-secondary hover:text-white focus:outline-none text-gray-500">
+              <span *ngIf="notifications.length > 0"
+                class="absolute bg-secondary block end-0 h-[15px] rounded-full text-white text-xs top-0 w-[15px]">
+                {{notifications.length}}
+              </span>
+              <span class="sr-only">Toggle notifications panel</span>
+              <svg aria-hidden="true" class="w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
+                </path>
               </svg>
             </button>
+
+            <!-- Notifications Dropdown -->
+            <div *ngIf="isNotificationOpen"
+              class="absolute left-0 mt-2 w-80 bg-white border border-gray-200 rounded-md shadow-lg z-10">
+              <div class="p-3 border-b border-gray-200 flex justify-between items-center">
+                <div class="text-lg font-semibold">Notifications</div>
+                <button *ngIf="notifications.length > 0" 
+                        (click)="clearAllNotifications()"
+                        class="text-sm text-gray-500 hover:text-secondary">
+                  Clear all
+                </button>
+              </div>
+              
+              <div class="max-h-96 overflow-y-auto">
+                <div *ngFor="let notification of notifications; let i = index" 
+                     class="p-3 border-b border-gray-100 hover:bg-gray-50">
+                  <div class="flex justify-between items-start group">
+                    <div class="flex-1">
+                      <p class="text-sm text-gray-800">{{ notification.message }}</p>
+                    </div>
+                    <button (click)="removeNotification(i)" 
+                            class="ml-2 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                
+                <div *ngIf="notifications.length === 0" class="p-4 text-center text-gray-500">
+                  No new notifications
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        
+
+        <!-- User Profile Section -->
+        <div class="pb-3 pt-4">
+          <div class="flex items-center px-5">
+            <div class="flex-shrink-0 relative">
+              <img [src]="userData?.profile_picture_url || 'assets/default-avatar.png'"
+                class="h-10 w-10 rounded-full cursor-pointer object-cover"
+                alt="User profile picture"
+                (click)="toggleDropdown()" />
+
+              <!-- Profile Dropdown -->
+              <div *ngIf="isDropdownVisible"
+                class="absolute top-[34px] right-0 mt-2 w-60 bg-white rounded-md shadow-lg z-10">
+                <div class="px-4 py-3 border-b bg-secondary">
+                  <div class="text-base font-medium leading-none text-white mb-2">{{ userData?.userName }}</div>
+                  <div class="text-sm font-medium leading-none text-gray-200">{{ userData?.email }}</div>
+                </div>
+
+                <ul class="py-1">
+                  <li class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">Profile</li>
+                  <li class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">Settings</li>
+                  <li class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer" (click)="logout()">Logout
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </nav>
