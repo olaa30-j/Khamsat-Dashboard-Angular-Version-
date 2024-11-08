@@ -17,6 +17,9 @@ export class NotificationService {
   getServiceCreatedNotification(): Observable<any> {
     return new Observable((observer) => {
       this.socket.on('serviceCreated', (data) => {
+        console.log("serviceCreated")
+        const audio = new Audio('/notification.mp3');
+        audio.play();
         observer.next(data);
       });
     });

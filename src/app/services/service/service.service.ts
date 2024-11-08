@@ -30,6 +30,7 @@ export interface ISubcategory {
 
 export interface IService {
   userId: {
+    _id:string;
     username:string;
     profilePicture:string;
   };

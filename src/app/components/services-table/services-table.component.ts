@@ -9,6 +9,17 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { CommonModule } from '@angular/common';
+import { SocketService } from '../../socket.service';
+
+interface Notification {
+  id: string;
+  message: string;
+  status: 'rejected' | 'accepted' | 'pending';
+  serviceLink: string;
+  serviceTitle: string;
+  timestamp: string;
+  read?: boolean;
+}
 
 @Component({
   selector: 'app-services-table',
@@ -21,7 +32,7 @@ import { CommonModule } from '@angular/common';
     MatSortModule,
     MatButtonModule,
     MatCardModule,
-    MatMenuModule, 
+    MatMenuModule,
     CommonModule
   ]
 })
@@ -38,22 +49,30 @@ export class ServicesTableComponent implements AfterViewInit, OnInit, OnDestroy 
   @ViewChild(MatSort) sort!: MatSort;
 
   private routerSubscription!: Subscription;
+  private notificationSubscription: Subscription | null = null;
 
-  constructor(private servicesLogic: ServiceService, private router: Router) {
+  constructor(
+    private servicesLogic: ServiceService,
+    private router: Router,
+    private socketService: SocketService
+  ) {
     this.getAllServices();
   }
 
   ngOnInit(): void {
     this.routerSubscription = this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.getAllServices(); // Reload services on navigation end
+        this.getAllServices();
       }
     });
   }
 
   ngOnDestroy(): void {
     if (this.routerSubscription) {
-      this.routerSubscription.unsubscribe(); // Clean up subscription
+      this.routerSubscription.unsubscribe();
+    }
+    if (this.notificationSubscription) {
+      this.notificationSubscription.unsubscribe();
     }
   }
 
@@ -81,11 +100,53 @@ export class ServicesTableComponent implements AfterViewInit, OnInit, OnDestroy 
       this.servicesLogic.updateServiceStatus(service._id, newStatus).subscribe({
         next: () => {
           this.getAllServices();
+          
+          // Create notification object
+          const notification: Notification = {
+            id: crypto.randomUUID(), // Generate unique ID
+            message: this.getStatusMessage(newStatus, service.title.en),
+            status: this.mapStatus(newStatus),
+            serviceLink: `/categories/${service.category.name.en}/${service.subcategory.title.en}/${service._id}`,
+                      // `/categories/Programming%20&%20Development/Website%20Development/67257a39865b27266be567bf`
+            serviceTitle: service.title.en,
+            timestamp: new Date().toISOString(),
+          };
+          console.log(service)
+          // Send notification through socket
+          this.socketService.sendNotification(service.userId._id, notification);
+          
+          console.log('Notification sent:', notification);
         },
         error: (error) => {
           console.error("Error updating service status:", error);
         }
       });
+    }
+  }
+
+  private getStatusMessage(status: string, serviceTitle: string): string {
+    switch (status) {
+      case 'active':
+        return `تم قبول خدمتك: ${serviceTitle}`;
+      case 'rejected':
+        return `للأسف، لم يتم قبول الخدمة: ${serviceTitle}. يرجى زيارة صفحة الخدمة للاطلاع على التعديلات المطلوبة لنشرها.`;
+      case 'paused':
+        return `تم إيقاف خدمتك مؤقتاً: ${serviceTitle}`;
+      default:
+        return `تم تحديث حالة خدمتك: ${serviceTitle}`;
+    }
+  }
+
+  private mapStatus(status: string): 'rejected' | 'accepted' | 'pending' {
+    switch (status) {
+      case 'active':
+        return 'accepted';
+      case 'rejected':
+        return 'rejected';
+      case 'paused':
+      case 'waiting':
+      default:
+        return 'pending';
     }
   }
 
