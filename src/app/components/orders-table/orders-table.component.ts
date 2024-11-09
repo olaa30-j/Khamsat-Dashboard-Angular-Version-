@@ -23,7 +23,7 @@ import { IOrder, IOrderData, OrdersService } from '../../services/orders/orders.
   styleUrls: ['./orders-table.component.scss']
 })
 export class OrdersTableComponent implements AfterViewInit, OnInit {
-  displayedColumns: string[] = ['Transaction_id', 'profilePicture', 'username', 'serviceTitle', 'total', 'status', 'updatedAt'];
+  displayedColumns: string[] = ['Transaction_id', 'profilePicture', 'username', 'serviceTitle', 'status', 'total', 'updatedAt'];
   ordersData: IOrder[] = [];
   loading: boolean = true;
   errorMessage: string | null = null;
